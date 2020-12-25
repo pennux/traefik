@@ -1,7 +1,7 @@
 # Traefik
 Repositório para colocar os arquivos que montei para usar o traefik como ingress controler, nesse momento o controle está somente na porta 80.
 
-##Sequincia de intalação:
+## Sequincia de intalação:
 
 1 - Instalação do yaml para incluir a regras RBAC: <br > 
 kubectl apply -f traefik-clusterrole.yaml
