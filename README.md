@@ -12,4 +12,4 @@ kubectl apply -f traefik-deamonset.yaml
 3 - Instalação do ymal para subir a interface de gerenciamento do traefik:
 kubectl apply -f traefik-ui.yaml
 
-[Documentação oficial](https://doc.traefik.io/ "Clique e acesse agora!")
+[Documentação oficial](https://doc.traefik.io/traefik/ "Clique e acesse agora!")
