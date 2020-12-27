@@ -18,3 +18,11 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+
+    volumes:
+    - name: html-volume
+      hostPath:
+        path: /home/penna/

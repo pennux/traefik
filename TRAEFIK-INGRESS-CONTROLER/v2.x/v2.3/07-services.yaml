@@ -1,0 +1,30 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-ingress-service
+  namespace: kube-system
+spec:
+  selector:
+    k8s-app: traefik-ingress-controller
+  ports:
+  - protocol: TCP
+    port: 80
+    name: web
+  - protocol: TCP
+    port: 443
+    name: websecure
+  type: NodePort
+  externalTrafficPolicy: Local
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-dashboard
+  namespace: kube-system
+spec:
+  selector:
+    k8s-app: traefik-ingress-controller
+  ports:
+  - port: 8080
+    name: dashboard

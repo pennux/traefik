@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-headers
+  namespace: kube-system
+spec:
+  headers:
+    customResponseHeaders:
+      X-Frame-Options: "sameorigin"
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-auth
+  namespace: kube-system
+spec:
+  basicAuth:
+    secret: traefik-auth-admin
+  

@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-ingress-configmap
+  namespace: kube-system
+data:
+  traefik.toml: |
+    [serversTransport]
+      insecureSkipVerify = true
+    
+    [entryPoints]
+      [entryPoints.web]
+        address = ":80"
+      
+      [entryPoints.websecure]
+        address = ":443"
+
+      [entryPoints.traefik]
+        address = ":8080"
+    [tls]
+      [[tls.certificates]]
+        certFile = "/ssl/tls.crt"
+        keyFile  = "/ssl/tls.key"
+      
+      [tls.options]
+        [tls.options.default]
+          minVersion = "VersionTLS12"
+          cipherSuites = ["TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256", "TLS_RSA_WITH_AES_256_GCM_SHA384"]
+
+    #### Para desativar o certificado default do traefik consultar o link (https://docs.traefik.io/https/tls/#default-certificate)
+      #[tls.stores]
+      #  [tls.stores.default]
+      #    [tls.stores.default.defaultCertificate]
+      #      certFile = "/ssl/tls-cip-core.crt"
+      #      keyFile  = "/ssl/tls-cip-core.key"
+
+    [providers]
+      [providers.file]
+        directory = "/config"
+        watch = true
+      [providers.kubernetesCRD]
+
+    [api]
+      insecure = true
+      dashboard = true
+      debug = true
+    
+    [metrics]
+      [metrics.prometheus]
+        entryPoint = "traefik"
+        buckets = [0.1,0.3,1.2,5.0]
+
+    [ping]
+      entryPoint = "traefik"
+
+    [log]
+      level = "ERROR"
+      filePath = "/var/log/traefik.log"
+    
+    [accessLog]
+      filePath = "/var/log/access.log"
+      bufferingSize = 100

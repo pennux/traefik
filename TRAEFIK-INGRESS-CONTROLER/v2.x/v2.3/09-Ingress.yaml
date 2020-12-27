@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: kube-system
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.lab.local`) && PathPrefix(`/`)
+      kind: Rule
+      priority: 1
+      #middlewares:
+      #  - name: traefik-auth
+      #  - name: traefik-headers
+      services:
+      - name: traefik-dashboard
+        port: 8080
+  #tls:
+  #  secretName: traefik-tls-cert
+    
